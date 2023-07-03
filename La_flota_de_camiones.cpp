@@ -1,22 +1,39 @@
 #include <iostream>
-#include <cmath>
+#include <vector>
+
+using namespace std;
+
+bool cumpleRequisito(int num) {
+    int cuadrado = num * num;
+    int divisor = 10;
+    int numTemp = num;
+
+    while (numTemp > 0) {
+        if (numTemp % divisor != cuadrado % divisor)
+            return false;
+        
+        numTemp /= 10;
+        cuadrado /= 10;
+    }
+
+    return true;
+}
 
 int main() {
-    int count = 0;
-    std::cout << "Los números de los camiones de la flota de 'La Tortuga' son: ";
+    vector<int> camiones;
 
     for (int i = 1; i < 500; i++) {
-        int square = i * i;
-        int lastDigit = square % 10;
-
-        if (lastDigit == i) {
-            std::cout << i << " ";
-            count++;
+        if (cumpleRequisito(i)) {
+            camiones.push_back(i);
         }
     }
 
-    std::cout << std::endl;
-    std::cout << "El número total de camiones en la flota es: " << count << std::endl;
+    cout << "Son " << camiones.size() << " camiones que cumplen el requisito:" << endl;
+    for (int i = 0; i < camiones.size(); i++) {
+        int cuadrado = camiones[i] * camiones[i];
+        cout << "(" << camiones[i] << " ^2 = " << cuadrado << ")" << endl;
+    }
 
     return 0;
 }
+
